@@ -1,0 +1,47 @@
+<html>
+
+<body>
+    <h1>It's alive!</h1>
+    <h2>
+        Пора отправить webhook
+    </h2>
+    <div>
+        <textarea id="wh" style="width: 500px; height: 300px;">
+{
+    "data": {
+        "example": 1
+    }
+}
+        </textarea>
+    </div>
+    <button onclick="send()" id="send-button">Отправить</button>
+    <script>
+        function send() {
+            // Блокируем кнопку
+            document.getElementById('send-button').setAttribute('disabled', '');
+            // Получаем значение поля
+            var webhook = document.getElementById('wh').value;
+            // Создаем запрос
+            var xhr = new XMLHttpRequest();
+            // Создаем обработчик ответа
+            xhr.onload = function () {
+                console.log(this);
+                this.status === 200
+                    ? document.getElementById('send-button').innerHTML = 'Webhook отправлен'
+                    : document.getElementById('send-button').innerHTML = 'Произошла ошибка';
+                setTimeout(() => {
+                    document.getElementById('send-button').removeAttribute('disabled');
+                    document.getElementById('send-button').innerHTML = 'Отправить';
+                }, 2000);
+            };
+            // Указываем куда слать
+            xhr.open("POST", location.href + "sendWebhook", true);
+            // Задаем заголовки
+            xhr.setRequestHeader('Content-type', 'application/json');
+            // отправляем запрос
+            xhr.send(webhook);
+        }
+    </script>
+</body>
+
+</html>

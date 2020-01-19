@@ -1,0 +1,1 @@
+{"subscriber":["http://localhost:3000/","http://localhost:3200/"],"subscribers":["ws://localhost:3000"]}
